@@ -1,31 +1,17 @@
-console.log('funguju!');
+console.log("Spirit of this Machine, heed my will")
+
+import { Movie } from './Movie/index.js';
 
 
 const movieList = () => {
 
 
     fetch("https://apps.kodim.cz/daweb/trening-api/apis/movie-api/movies").then(
-        (movies) => {
-            return movies.json();
+        (response) => {
+            return response.json();
         })
-        .then((movies) => {
-            container.innerHTML = movies.map(movie => `
-                <li class="movie-detail">
-                    <div class="movie-poster">
-                      <img 
-                        src="${movie.posterUrl}"
-                        alt="${movie.title}"
-                      />
-                    </div>
-                    <div class="movie-info">
-                      <h2 class="movie-title">${movie.title}</h2>
-                      <div class="movie-year">${movie.year}</div>
-                      <div class="movie-link">
-                        <a href="${movie.url}" target="_blank">Odkaz na CSFD</a>
-                      </div>
-                    </div>
-                </li>`)
-          .join(``);
+        .then((data) => {
+            container.innerHTML = data.map(Movie).join(``);
         });
 };
 
@@ -33,7 +19,6 @@ const movieList = () => {
 let mrdej = document.querySelector(".mrdej").addEventListener("click", movieList);
 
 let container = document.querySelector(".movie-list");
-
 
 /////////////////////////////////////////////////////////////////
 
@@ -46,11 +31,11 @@ const selectGenre = (event) => {
 
 
   fetch(`https://apps.kodim.cz/daweb/trening-api/apis/movie-api/movies?genre=${genre}`).then(
-    (filmy) => {
-      return filmy.json();
+    (response) => {
+      return response.json();
     })
-    .then((filmy) => {
-      container.innerHTML = filmy.map(film => `
+    .then((data) => {
+      container.innerHTML = data.map(film => `
                 <li class="movie-detail">
                     <div class="movie-poster">
                       <img 
